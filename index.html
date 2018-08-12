@@ -5,10 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Word Guess Game!</title>
+    <title>Fantasy Monster Guessing Game</title>
 </head>
 <body>
     
+
+    <h1>Fantasy Monster Guessing Game</h1>
+    <br>
+    <!-- Switches between instructions depending on whether the game is started -->
+    <h3 id="instBox">Press spacebar to begin!</h3>
+    <h3 id="instBox2"></h3>
+
+    <!-- Win counter -->
+    <h4>Wins</h4>
+    <h4 id="winBox"></h4>
+
+    <!-- current word -->
+    <h4>Current Word</h4>
+    <h4 id="wordBox"></h4>
+
+    <!-- remaining guesses -->
+    <h4>Remaining Guesses</h4>
+    <h4 id="guessBox"></h4>
+
+    <!-- letters already guessed -->
+    <h4>Letters already guessed</h4>
+    <h4 id="lettersBox"></h4>
+
+
+    <p id="debugBox"></p>
 
 
     <script src="assets/javascript/game.js"></script>
