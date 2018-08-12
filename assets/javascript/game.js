@@ -2,6 +2,7 @@
 
     // Array of possible words (wrdList)
     // Array of letters of alphabet (azList)
+    // Variable for guesses remaining (triesLeft)
 
 
 
@@ -24,13 +25,13 @@
 
 
 
-//Display number of guesses on the screen
 
 
 
-//Create an object with the guessed wrong letters (guessedWrong)
 
-//Create an object with the guessed right letters (guessedRight)
+//Create an array with the guessed wrong letters (guessedWrong)
+
+//Create an array with the guessed right letters (guessedRight)
 
 
 
@@ -46,5 +47,10 @@
     //  
     //  If the lowercase of the pressed key is within guessedRight, return
     //  If the key press is a value within srcWord
-        // Iterate through every 
-    //
+        // push the letter to guessedRight
+        // Iterate through every key/value pair of srcWord
+        // if the keypress is the value, change the corresponding key/value in disWord
+    //  Else 
+        // Push the lowercase of the pressed key to guessedWrong
+        // Decrement triesLeft by 1
+        // If triesLeft <= 0 restart the game
