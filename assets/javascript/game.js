@@ -1,9 +1,9 @@
 //Global variables
 
-    // Array of possible words (wrdList)
+    // Array of possible words 
     const wrdList = ['goblin', 'orc', 'kobold', 'beholder', 'demogorgon', 'medusa', 'harpy', 'skeleton', 'zombie', 'revenant', 'troglodyte']
     
-    // Array of letters of alphabet (azList)
+    // Array of letters of alphabet 
     const azList = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     
     // Source word
@@ -18,6 +18,9 @@
     // Guessed wrong letters
     var guessedWrong = [];
 
+    // String for guessed wrong letters
+    var guessedWrongStr = '';
+
     // Guessed right letters
     var guessedRight = [];
 
@@ -28,6 +31,12 @@
     // Experimental array for displayed word
     var disArray = [];
 
+    // Number of wins
+    var wins = 0;
+
+    // Flag for whether the game is over
+    var gameOver = false;
+
 //Global functions
 
 //Random integer generator less than max
@@ -35,7 +44,25 @@ var randomInt = function(max) {
     return Math.floor(Math.random() * max);
 }
 
-// Function to refresh the display in wordbox
+// Function to refresh global variables
+var refreshVars = function() {
+    srcWord = '';
+    disWord = '';
+    triesLeft = 12;
+    guessedWrong = [];
+    guessedWrongStr = '';
+    guessedRight = [];
+    disObj = {};
+    disArray = [];
+
+}
+
+// Function to refresh the display in the guessBox
+var refreshTries = function() {
+    document.getElementById("guessBox").innerText = triesLeft;
+}
+
+// Function to refresh the display in wordBox
 var refreshWord = function() {
     //Create array for display from object
     disArray = Object.values(disObj);
@@ -47,17 +74,61 @@ var refreshWord = function() {
     document.getElementById("wordBox").innerText = disWord;
 }
 
-// Function to restart the game on spacebar
+// Function to refresh the display in lettersBox
+var refreshLetters = function() {
+    //Create a string from the guessedWrong array
+    guessedWrongStr = guessedWrong.join();
+    document.getElementById("lettersBox").innerText = guessedWrongStr;
+    
+}
+
+// Function to announce something
+var announcer = function(message) {
+    document.getElementById("announceBox").innerText = message;
+}
+
+// Function to refresh the number of displayed wins
+var refreshWins = function() {
+    document.getElementById("winBox").innerText = wins;
+}
+// Function to check the winner of the game
+var checkWinner = function() {
+    refreshWord();
+    if (srcWord === disWord) {
+        wins++;
+        announcer(`That's win number ${wins}! Way to go! Press spacebar to play again!`);
+        // document.getElementById("announceBox").innerText = `That's win number ${wins}! Way to go! Press spacebar to play again!`;
+        gameOver = true;
+        refreshWins();
+        // gameStart();
+    }
+}
+
+// Function to check if you lost
+var checkLoser = function() {
+    if (triesLeft === 0) {
+        gameOver = true;
+        announcer(`Sorry, you lost! The word was ${srcWord}! Press spacebar to play again!`)
+    }
+}
+// Function to clear the announcements
+var refreshAnn = function() {
+    // document.getElementById("announceBox").innerText = '';
+    announcer('');
+}
+
+// Function to restart the game on spacebar press
 var gameStart = function() {
+
+    //Reset everything
+    refreshVars();
+    refreshWins();
+    refreshAnn();
+    refreshLetters();
+    gameOver = false;
     
     //Create source word by picking a random word from wrdList
     srcWord = wrdList[randomInt(wrdList.length)];
-
-    //Create string for displaying underscores equal to srcWord length
-    // disWord = "_";
-    // for (let i = 0; i < srcWord.length - 1; i++) {
-    //     disWord = disWord.concat(" _");
-    // }
 
     //Create object representing underscores for displayed word
     for (let i = 0; i < srcWord.length; i++) {
@@ -68,76 +139,59 @@ var gameStart = function() {
     refreshWord();
     
 
-    //Reset the number of guesses to 12
-    triesLeft = 12;
+    //Display the number of tries   
+    refreshTries();
 
     //Change the text of the instruction box
     document.getElementById("instBox").innerText = "Press any letter to guess that letter!";
     document.getElementById("instBox2").innerText = "Press spacebar to restart!";
-    
-    document.getElementById("debugBox").innerText = srcWord;
+
+    //Debugging helper for development to see the right answer AKA cheating!!
+    // document.getElementById("debugBox").innerText = srcWord;
 }
 
-// // Press spacebar to start or restart the game
-// document.onkeyup = function(event) {
-//     if (event.key === ' ') {
-//         //Create source word by picking a random word from wrdList
-//         srcWord = wrdList[randomInt(wrdList.length)];
-
-//         //Create string for displaying underscores equal to srcWord length
-//         disWord = "_";
-//         for (let i = 0; i < srcWord.length - 1; i++) {
-//             disWord = disWord.concat(" _");
-//         }
-
-//         //Reset the number of guesses to 12
-//         triesLeft = 12;
-
-//         //Change the text of the instruction box
-//         document.getElementById("instBox").innerText = "Press any letter to guess that letter!";
-//         document.getElementById("instBox2").innerText = "Press spacebar to restart!";
-//         document.getElementById("wordBox").innerText = disWord;
-//         document.getElementById("debugBox").innerText = srcWord;
-
-//     }
-// }
 
 
-
-//On user keyup, do some things
+//  Main game function
 document.onkeyup = function(event) {
     //  Transform the key to lowercase
     var keyPress = event.key.toLowerCase();
     //  Start or restart the game if the key was space
-    if (keyPress === ' ') gameStart();   
+    if (keyPress === ' ') gameStart(); 
+    // Check if the game is over
+    else if (gameOver) {return}  
     //  If keyPress isn't a letter, or has been guessed, return
     else if (!azList.includes(keyPress) || guessedWrong.includes(keyPress) || guessedRight.includes(keyPress)) {
         return;
     }
     //  If the key press is a value within srcWord    
-    if (srcWord.includes(keyPress)) {
+    else if (srcWord.includes(keyPress)) {
         // push the letter to the array of guessed letters
         guessedRight.push(keyPress);   
         // Iterate through every letter of srcWord looking for the guessed letter
         let i = 0;
-        for (let letter of srcWord) {            
+        for (let letter of srcWord) {
+            // if the keypress is the value, change the corresponding key/value in disObj            
             if (letter === keyPress) {
-                disObj[i] = keyPress;
-
-                
+                disObj[i] = keyPress;                
             }
             i++;
-        }
-        // if the keypress is the value, change the corresponding key/value in disWord
+        }        
         // Update the display
-        refreshWord();
+        refreshWord();            
     }
-
-    
-        
-
-    //  Else 
-        // Push the keyPress to guessedWrong
-        // Decrement triesLeft by 1
-        // If triesLeft <= 0 restart the game
+    // All other key presses are wrong letters 
+    else {
+        // push the keyPress to guessedWrong and refresh
+        guessedWrong.push(keyPress);
+        refreshLetters();
+        // Decrement triesLeft by 1, and refresh the display
+        triesLeft--;
+        refreshTries();
+    }
+    //Check to see if you've won
+   
+    checkWinner();
+    //Check to see if you've lost
+    checkLoser();
 }
