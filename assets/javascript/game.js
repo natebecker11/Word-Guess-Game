@@ -1,13 +1,31 @@
 //Global variables
 
     // Array of possible words 
-    const wrdList = ['goblin', 'orc', 'kobold', 'beholder', 'demogorgon', 'medusa', 'harpy', 'skeleton', 'zombie', 'revenant', 'troglodyte']
+    const wrdList = [
+        {name: 'goblin', img: 'assets/images/goblin.jpg'}, 
+        {name: 'orc', img: 'assets/images/orc.jpg'},
+        {name: 'kobold', img: 'assetsimages/kobold.jpg'}, 
+        {name: 'beholder', img: 'assets/images/beholder.jpg'}, 
+        {name: 'demogorgon', img: 'assets/images/demogorgon.jpg'}, 
+        {name: 'medusa', img: 'assets/images/medusa.jpg'}, 
+        {name: 'harpy', img: 'assets/images/harpy.jpg'}, 
+        {name: 'skeleton', img: 'assets/images/skeleton.jpg'}, 
+        {name: 'zombie', img: 'assets/images/zombie.jpg'}, 
+        {name: 'revenant', img: 'assets/images/revenant.jpg'}, 
+        {name: 'troglodyte', img: 'assets/images/troglodyte.jpg'}
+    ]
     
     // Array of letters of alphabet 
     const azList = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     
+    // Source object
+    var srcObject = {};
+
     // Source word
     var srcWord = '';
+
+    // Source image
+    var srcImage = '';
 
     // Display word
     var disWord = '';
@@ -35,7 +53,7 @@
     var wins = 0;
 
     // Flag for whether the game is over
-    var gameOver = false;
+    var gameOver = true;
 
 //Global functions
 
@@ -44,9 +62,23 @@ var randomInt = function(max) {
     return Math.floor(Math.random() * max);
 }
 
+// Function to display image upon game win
+
+var dispImage = function(sourceObject) {
+    document.getElementById("imgBox").innerHTML = `<img src=${sourceObject.img} alt="Picture of a monster">`;
+}
+
+// Function to clear the image on a new game
+
+var clearImage = function() {
+    document.getElementById("imgBox").innerHTML = '';
+}
+
 // Function to refresh global variables
 var refreshVars = function() {
     srcWord = '';
+    srcObject = {};
+    srcImage = '';
     disWord = '';
     triesLeft = 12;
     guessedWrong = [];
@@ -97,6 +129,7 @@ var checkWinner = function() {
     if (srcWord === disWord) {
         wins++;
         announcer(`That's win number ${wins}! Way to go! Press spacebar to play again!`);
+        dispImage(srcObject);
         // document.getElementById("announceBox").innerText = `That's win number ${wins}! Way to go! Press spacebar to play again!`;
         gameOver = true;
         refreshWins();
@@ -125,10 +158,20 @@ var gameStart = function() {
     refreshWins();
     refreshAnn();
     refreshLetters();
+    clearImage();
     gameOver = false;
+
+    //Creat source object by picking a random object from wrdList
+    srcObject = wrdList[randomInt(wrdList.length)];
     
     //Create source word by picking a random word from wrdList
-    srcWord = wrdList[randomInt(wrdList.length)];
+    // srcWord = wrdList[randomInt(wrdList.length)];
+
+    //Define source word and source image
+    srcWord = srcObject.name;
+    srcImage = srcObject.img;
+
+
 
     //Create object representing underscores for displayed word
     for (let i = 0; i < srcWord.length; i++) {
