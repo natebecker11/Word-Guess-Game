@@ -4,7 +4,7 @@
     const wrdList = [
         {name: 'goblin', img: 'assets/images/goblin.jpg'}, 
         {name: 'orc', img: 'assets/images/orc.jpg'},
-        {name: 'kobold', img: 'assetsimages/kobold.jpg'}, 
+        {name: 'kobold', img: 'assets/images/kobold.jpg'}, 
         {name: 'beholder', img: 'assets/images/beholder.jpg'}, 
         {name: 'demogorgon', img: 'assets/images/demogorgon.jpg'}, 
         {name: 'medusa', img: 'assets/images/medusa.jpg'}, 
