@@ -1,0 +1,33 @@
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'IM Fell French Canon SC', serif;
+}
+
+
+
+/* h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Condensed', sans-serif;
+} */
+
+
+
+.spaced-text {
+    letter-spacing: 4px;
+}
+
+
+.monster-image {
+    height: 400px;
+    max-width: 400px;
+    width: auto;
+}
+
+
+
+.main-area {
+    border: 7px dashed black;
+}
+
+
+.placehold {
+    min-height: 32px;
+}

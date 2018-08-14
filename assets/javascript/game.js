@@ -65,7 +65,7 @@ var randomInt = function(max) {
 // Function to display image upon game win
 
 var dispImage = function(sourceObject) {
-    document.getElementById("imgBox").innerHTML = `<img src=${sourceObject.img} alt="Picture of a monster">`;
+    document.getElementById("imgBox").innerHTML = `<img src=${sourceObject.img} alt="Picture of a monster" class="img-responsive monster-image">`;
 }
 
 // Function to clear the image on a new game
