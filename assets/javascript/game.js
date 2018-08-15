@@ -57,6 +57,13 @@
 
 //Global functions
 
+
+
+
+
+
+
+
 //Random integer generator less than max
 var randomInt = function(max) {
     return Math.floor(Math.random() * max);
@@ -67,6 +74,24 @@ var randomInt = function(max) {
 var dispImage = function(sourceObject) {
     document.getElementById("imgBox").innerHTML = `<img src=${sourceObject.img} alt="Picture of a monster" class="img-responsive monster-image">`;
 }
+
+// Alternate method for image insertion
+
+// var dispImage = function(sourceObject) {
+//     var imgDiv = document.querySelector('#imgBox');
+//     var imgMon = document.createElement('img');
+//     imgMon.src = `${sourceObject.img}`;
+//     imgMon.id = 'monsterPic';
+//     imgDiv.appendChild(imgMon);
+// }
+
+
+// Alternate method for clearing the image
+
+// var clearImage = function() {
+//     var imgMon = document.querySelector('#monsterPic');
+//     imgMon.parentNode.removeChild(imgMon);
+// }
 
 // Function to clear the image on a new game
 
