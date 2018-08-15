@@ -27,7 +27,23 @@ h1, h2, h3, h4, h5, h6 {
     border: 7px dashed black;
 }
 
+.main-area2 {
+    border: 7px dashed black;
+    background-color: white;
+}
+
 
 .placehold {
     min-height: 32px;
+}
+
+.glow-text {
+    animation: glow .5s infinite alternate;
+    font-size: 40px;
+}
+
+@keyframes glow {
+    to {
+        text-shadow: 0 0 10px red;
+    }
 }

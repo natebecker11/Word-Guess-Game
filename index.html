@@ -8,10 +8,16 @@
     <link href="https://fonts.googleapis.com/css?family=IM+Fell+French+Canon+SC" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Fantasy Monster Guessing Game</title>
+    <audio id='battleSong'>
+        <source src='assets/audio/battle.mp3' type='audio/mp3'>        
+    </audio>
+    <audio id='victorySong'>
+        <source src='assets/audio/victory.mp3' type='audio/mp3'>
+    </audio>
 </head>
 <body class="bg-dark">
 
-
+    
 
     <div class="container bg-secondary main-area mt-3 text-center">
         <div class="row">
@@ -20,37 +26,37 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-4">
                 <div class="row">
                     <div class="col-12">
                         <!-- Switches between instructions depending on whether the game is started -->
-                        <h3 id="instBox" class="text-light">Press spacebar to begin!</h3>
-                        <h3 id="instBox2" class="text-light">Good Luck!</h3>
+                        <h3 id="instBox" class="text-light glow-text">Press spacebar to begin!</h3>
+                        
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 mt-md-4">
                         <!-- Win counter -->
                         <h4 class="text-light">Wins</h4>
                         <h4 id="winBox" class="text-light font-weight-bold">0</h4>
                     </div>                    
                 </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 mt-md-4">
                         <!-- current word -->
                         <h4 class="text-light">Current Word</h4>
-                        <h4 id="wordBox" class="text-light font-weight-bold spaced-text">_ _ _ _ _</h4>
+                        <h4 id="wordBox" class="text-light font-weight-bold spaced-text">?????????</h4>
                     </div>                    
                 </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 mt-md-4">
                         <!-- remaining guesses -->
                         <h4 class="text-light">Remaining Guesses</h4>
                         <h4 id="guessBox" class="text-light font-weight-bold">12</h4>
                     </div>                    
                 </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 mt-md-4">
                         <!-- letters already guessed -->
                         <h4 class="text-light">Letters already guessed</h4>
                         <h4 id="lettersBox" class="text-light font-weight-bold placehold"></h4>
@@ -58,11 +64,12 @@
                 </div>
 
             </div>
-            <div class="col-12 col-md-5 main-area mb-4">
-                <div id="imgBox"></div>
+            <div class="col-12 col-md-7 main-area2 mb-4">
+                <div id="imgBox">
+                </div>
             </div>
         </div>
-
+        
 
 
     </div>
@@ -79,7 +86,7 @@
 
 
 
-    <h2 id="announceBox" class="text-light font-weight-bold"></h2>
+    <h2 id="announceBox" class="text-light font-weight-bold text-center mt-md-3"></h2>
 
 
     <p id="debugBox"></p>

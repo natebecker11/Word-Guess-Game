@@ -55,11 +55,26 @@
     // Flag for whether the game is over
     var gameOver = true;
 
+    // Battle music
+    var battleMusic = document.querySelector("#battleSong");
+    battleMusic.loop = true;
+
+    // Victory music 
+    var victoryMusic = document.querySelector("#victorySong");
+
 //Global functions
 
 
+// Function to play music from the start of the track
+var playMusic = function(song) {
+    song.currentTime = 0;
+    song.play();
+}
 
-
+// Function to pause music
+var pauseMusic = function(song) {
+    song.pause();
+}
 
 
 
@@ -75,26 +90,29 @@ var randomInt = function(max) {
 //     document.getElementById("imgBox").innerHTML = `<img src=${sourceObject.img} alt="Picture of a monster" class="img-responsive monster-image">`;
 // }
 
-//Alternate method for image insertion
+//Alternate method for image insertion without innerHTML
 
 var dispImage = function(sourceObject) {
     var imgDiv = document.querySelector('#imgBox');
     var imgMon = document.createElement('img');
     imgMon.src = `${sourceObject.img}`;
     imgMon.id = 'monsterPic';
+    imgMon.classList.add('monster-image', 'img-responsive');
     imgDiv.appendChild(imgMon);
 }
 
 
-// Alternate method for clearing the image
+// Alternate method for clearing the image without innerHTML
 
 var clearImage = function() {
-    if (gameOver = false) return;
-    else {
     var imgMon = document.querySelector('#monsterPic');
+    if (imgMon === null) return;
+    else {
     imgMon.parentNode.removeChild(imgMon);
-    };
-}
+    }    
+};
+
+
 
 // Function to clear the image on a new game
 
@@ -158,6 +176,8 @@ var checkWinner = function() {
         wins++;
         announcer(`That's win number ${wins}! Way to go! Press spacebar to play again!`);
         dispImage(srcObject);
+        pauseMusic(battleMusic);
+        playMusic(victoryMusic);
         // document.getElementById("announceBox").innerText = `That's win number ${wins}! Way to go! Press spacebar to play again!`;
         gameOver = true;
         refreshWins();
@@ -187,6 +207,8 @@ var gameStart = function() {
     refreshAnn();
     refreshLetters();
     clearImage();
+    pauseMusic(victoryMusic);
+    playMusic(battleMusic);
     gameOver = false;
 
     //Creat source object by picking a random object from wrdList
@@ -214,8 +236,8 @@ var gameStart = function() {
     refreshTries();
 
     //Change the text of the instruction box
-    document.getElementById("instBox").innerText = "Press any letter to guess that letter!";
-    document.getElementById("instBox2").innerText = "Press spacebar to restart!";
+    document.getElementById("instBox").innerText = "Press a letter to guess!";
+    
 
     //Debugging helper for development to see the right answer AKA cheating!!
     // document.getElementById("debugBox").innerText = srcWord;
