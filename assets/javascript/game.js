@@ -71,33 +71,36 @@ var randomInt = function(max) {
 
 // Function to display image upon game win
 
-var dispImage = function(sourceObject) {
-    document.getElementById("imgBox").innerHTML = `<img src=${sourceObject.img} alt="Picture of a monster" class="img-responsive monster-image">`;
-}
-
-// Alternate method for image insertion
-
 // var dispImage = function(sourceObject) {
-//     var imgDiv = document.querySelector('#imgBox');
-//     var imgMon = document.createElement('img');
-//     imgMon.src = `${sourceObject.img}`;
-//     imgMon.id = 'monsterPic';
-//     imgDiv.appendChild(imgMon);
+//     document.getElementById("imgBox").innerHTML = `<img src=${sourceObject.img} alt="Picture of a monster" class="img-responsive monster-image">`;
 // }
+
+//Alternate method for image insertion
+
+var dispImage = function(sourceObject) {
+    var imgDiv = document.querySelector('#imgBox');
+    var imgMon = document.createElement('img');
+    imgMon.src = `${sourceObject.img}`;
+    imgMon.id = 'monsterPic';
+    imgDiv.appendChild(imgMon);
+}
 
 
 // Alternate method for clearing the image
 
-// var clearImage = function() {
-//     var imgMon = document.querySelector('#monsterPic');
-//     imgMon.parentNode.removeChild(imgMon);
-// }
+var clearImage = function() {
+    if (gameOver = false) return;
+    else {
+    var imgMon = document.querySelector('#monsterPic');
+    imgMon.parentNode.removeChild(imgMon);
+    };
+}
 
 // Function to clear the image on a new game
 
-var clearImage = function() {
-    document.getElementById("imgBox").innerHTML = '';
-}
+// var clearImage = function() {
+//     document.getElementById("imgBox").innerHTML = '';
+// }
 
 // Function to refresh global variables
 var refreshVars = function() {
