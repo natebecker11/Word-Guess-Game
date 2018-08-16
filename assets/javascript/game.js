@@ -62,6 +62,9 @@
     // Victory music 
     var victoryMusic = document.querySelector("#victorySong");
 
+    // Muted toggle
+    var musicMuted = false;
+
 //Global functions
 
 
@@ -76,6 +79,26 @@ var pauseMusic = function(song) {
     song.pause();
 }
 
+// Function to toggle music
+var muteMusic = function(...songs) {
+    var btnSts = document.querySelector('#muteButton');
+    if (!musicMuted) {
+        btnSts.textContent = 'Unmute';
+        musicMuted = true;
+    } else {
+        btnSts.textContent = 'Mute';
+        musicMuted = false;
+    }
+    songs.forEach(
+        function muteOne(song, index) {
+            if (song.muted) {
+                song.muted = false;
+            } else {
+                song.muted = true;
+            }
+        }
+    )
+}
 
 
 
@@ -84,13 +107,9 @@ var randomInt = function(max) {
     return Math.floor(Math.random() * max);
 }
 
-// Function to display image upon game win
 
-// var dispImage = function(sourceObject) {
-//     document.getElementById("imgBox").innerHTML = `<img src=${sourceObject.img} alt="Picture of a monster" class="img-responsive monster-image">`;
-// }
 
-//Alternate method for image insertion without innerHTML
+// Function to display image of current monster
 
 var dispImage = function(sourceObject) {
     var imgDiv = document.querySelector('#imgBox');
@@ -102,23 +121,14 @@ var dispImage = function(sourceObject) {
 }
 
 
-// Alternate method for clearing the image without innerHTML
+// Function to clear the image
 
 var clearImage = function() {
     var imgMon = document.querySelector('#monsterPic');
-    if (imgMon === null) return;
-    else {
-    imgMon.parentNode.removeChild(imgMon);
-    }    
+    if (imgMon !== null) {
+        imgMon.parentNode.removeChild(imgMon);
+    }        
 };
-
-
-
-// Function to clear the image on a new game
-
-// var clearImage = function() {
-//     document.getElementById("imgBox").innerHTML = '';
-// }
 
 // Function to refresh global variables
 var refreshVars = function() {
@@ -174,14 +184,12 @@ var checkWinner = function() {
     refreshWord();
     if (srcWord === disWord) {
         wins++;
-        announcer(`That's win number ${wins}! Way to go! Press spacebar to play again!`);
+        announcer(`That's Win Number ${wins}! Way to Go! Press Spacebar to Play Again!`);
         dispImage(srcObject);
         pauseMusic(battleMusic);
-        playMusic(victoryMusic);
-        // document.getElementById("announceBox").innerText = `That's win number ${wins}! Way to go! Press spacebar to play again!`;
+        playMusic(victoryMusic);        
         gameOver = true;
         refreshWins();
-        // gameStart();
     }
 }
 
@@ -189,12 +197,11 @@ var checkWinner = function() {
 var checkLoser = function() {
     if (triesLeft === 0) {
         gameOver = true;
-        announcer(`Sorry, you lost! The word was ${srcWord}! Press spacebar to play again!`)
+        announcer(`Sorry, You Lost! The Word Was ${srcWord}! Press Spacebar to Play Again!`)
     }
 }
 // Function to clear the announcements
-var refreshAnn = function() {
-    // document.getElementById("announceBox").innerText = '';
+var refreshAnn = function() {    
     announcer('');
 }
 
@@ -206,23 +213,18 @@ var gameStart = function() {
     refreshWins();
     refreshAnn();
     refreshLetters();
-    clearImage();
+    clearImage();    
     pauseMusic(victoryMusic);
     playMusic(battleMusic);
     gameOver = false;
 
-    //Creat source object by picking a random object from wrdList
+    //Create source object by picking a random object from wrdList
     srcObject = wrdList[randomInt(wrdList.length)];
-    
-    //Create source word by picking a random word from wrdList
-    // srcWord = wrdList[randomInt(wrdList.length)];
-
+        
     //Define source word and source image
     srcWord = srcObject.name;
     srcImage = srcObject.img;
-
-
-
+    
     //Create object representing underscores for displayed word
     for (let i = 0; i < srcWord.length; i++) {
         disObj[i] = "_ "
@@ -231,12 +233,11 @@ var gameStart = function() {
     //Display the word
     refreshWord();
     
-
     //Display the number of tries   
     refreshTries();
 
     //Change the text of the instruction box
-    document.getElementById("instBox").innerText = "Press a letter to guess!";
+    document.getElementById("instBox").innerText = "Press a Letter to Guess!";
     
 
     //Debugging helper for development to see the right answer AKA cheating!!
